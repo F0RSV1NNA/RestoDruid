@@ -21,7 +21,7 @@ Rejuvenation:Callback(function(spell)
     if player.buff(spell.name) then return end
     if spell:Castable(project.lowest) then 
         if spell:Cast(project.Lowest) then
-             return true
+            return true
             end
         end
     end
