@@ -18,8 +18,8 @@ awful.Populate({
 
 Rejuvenation:Callback(function(spell)
     if project.Lowest.hp < 95 then
+    if player.buff(spell.name) then return end
     if spell:Castable(project.lowest) then 
-        if player.buff(spell.name) then return end
         if spell:Cast(project.Lowest) then
              return true
             end
@@ -29,8 +29,8 @@ end)
 
 Lifebloom:Callback(function(spell)
     if project.Lowest.hp < 85 then
+    if player.buff(spell.name) then return end
     if spell:Castable(project.lowest) then 
-        if player.buff(spell.name) then return end
         if spell:Cast(project.Lowest) then
             return true
             end
