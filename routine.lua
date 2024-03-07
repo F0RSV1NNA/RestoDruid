@@ -3,7 +3,7 @@ local settings = project.settings
 local player, target = awful.player, awful.target
 
 if awful.player.spec ~= "Restoration" then return end
-
+ 
 awful.DevMode = true
 
 project.druid = {}
