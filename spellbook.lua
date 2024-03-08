@@ -5,7 +5,10 @@ local Spell = awful.Spell
 
 awful.Populate({
 --## Cooldowns ##
+    Rebirth = Spell(20484,{beneficial = true, castByID = true}),
     Natswift = Spell(132158,{beneficial = true, castByID = true}),
+--## Dispell ##
+    Natcure = Spell(88423,{beneficial = true, castByID = true}),
 --## Buff's ##
     MarkOfWild = Spell(1126,{beneficial = true, castByID = true}),
 --## AoE Heals ##
@@ -19,6 +22,7 @@ awful.Populate({
 --## Damage Abilities ##
     Moonfire = awful.Spell(8921,{castByID = true, ranged = true}),
     Wrath = awful.Spell(5176,{castByID = true, ranged = true}),
+    Starfire = awful.Spell(197628,{castByID = true, ranged = true}),
 
 }, resto, getfenv(1))
 
@@ -56,7 +60,30 @@ Regrowth:Callback(function(spell)
     end
 end)
 
+Swiftmend:Callback(function(spell)
+    if project.Lowest.hp < 50 then
+        if project.Lowest.buff(774) then
+            if spell:Castable(project.Lowest) then
+                if spell:Cast(project.Lowest) then
+                    return true
+                end
+            end
+        end
+    end
+end)
+
+
 --## Cooldowns ##
+
+Rebirth:Callback(function(spell)
+    if project.Lowest.alive == false and project.Lowest.role == "TANK" then
+        if spell:Castable(project.Lowest) then 
+            if spell:Cast(project.Lowest) then
+                return true
+            end
+        end
+    end
+end)
 
 Natswift:Callback(function(spell)
     if project.Lowest.hp < 45 then
@@ -68,7 +95,7 @@ Natswift:Callback(function(spell)
     end
 end)
 
---## BUFFS ##
+--## BUFF ##
 
 MarkOfWild:Callback(function(spell)
     awful.group.loop(function(player)
@@ -78,10 +105,19 @@ MarkOfWild:Callback(function(spell)
     end)
 end)
 
-
+Natcure:Callback(function(spell)
+    awful.fullGroup.loop(function(member)
+        if member.debuffType("Disease") then
+            if spell:Castable(member) then
+                if spell:Cast(member) then
+                    return true
+                end
+            end
+        end
+    end)
+end)
 
 --## DAMAGE ABILITIES ##
-
 
 Moonfire:Callback(function(spell)
     if target.Combat then
@@ -97,6 +133,12 @@ end)
 
 Wrath:Callback(function(spell)
     if target.Combat then
+        spell:Cast(target)
+    end
+end)
+
+Starfire:Callback(function(spell)
+    if target.Combat and awful.enemies.count >= 3 then
         spell:Cast(target)
     end
 end)

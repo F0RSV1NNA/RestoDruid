@@ -29,6 +29,7 @@ druid:Init(function()
   if player.mounted then return end 
 
   SetLowest()
+  Rebirth()
   MarkOfWild()
   Natswift()
 
@@ -36,8 +37,11 @@ druid:Init(function()
     Regrowth()
     Rejuvenation()
     Lifebloom()
+    Swiftmend()
+    Natcure()
     if target.enemy then
         Moonfire()
+        Starfire()
         Wrath()
     end
 end
@@ -45,6 +49,8 @@ end
         Regrowth()
         Rejuvenation()
         Lifebloom()
+        Swiftmend()
+        Natcure()
     end
 
 
