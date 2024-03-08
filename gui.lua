@@ -65,7 +65,7 @@ StatusFrame:Button({
 	spellId = 287712,
 	var = "DMG",
 	onClick = function()
-	  awful.print(settings.DMG and "DMG ON |cff5fd729On" or "DMG OFF |cfff44336Off")
+	  awful.print(settings.DMG and "DMG |cff5fd729On" or "DMG |cfff44336Off")
 	end,
 	size = 32,
 	padding = 0
