@@ -41,9 +41,9 @@ druid:Init(function()
     --Natcure()
     if target.enemy then
         Moonfire()
-        Starfire()
         Sunfire()
         Starsurge()
+        Starfire()
         Wrath()
     end
 end
