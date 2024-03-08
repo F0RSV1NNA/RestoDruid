@@ -8,7 +8,7 @@ awful.Populate({
     Rebirth = Spell(20484,{beneficial = true, castByID = true}),
     Natswift = Spell(132158,{beneficial = true, castByID = true}),
 --## Dispell ##
-    Natcure = Spell(88423,{beneficial = true, castByID = true}),
+    --Natcure = Spell(88423,{beneficial = true, castByID = true}),
 --## Buff's ##
     MarkOfWild = Spell(1126,{beneficial = true, castByID = true}),
 --## AoE Heals ##
@@ -21,7 +21,9 @@ awful.Populate({
     Swiftmend = Spell(18562, {heal = true, castByID = true}),
 --## Damage Abilities ##
     Moonfire = awful.Spell(8921,{castByID = true, ranged = true}),
+    Sunfire = awful.Spell(93402,{castByID = true, ranged = true}),
     Wrath = awful.Spell(5176,{castByID = true, ranged = true}),
+    Starsurge = awful.Spell(197626,{castByID = true, ranged = true}),
     Starfire = awful.Spell(197628,{castByID = true, ranged = true}),
 
 }, resto, getfenv(1))
@@ -53,15 +55,15 @@ end)
 --## Regular HEALS ##
 
 Regrowth:Callback(function(spell)
-    if player.buff(16870) then --clearcast
-        return spell:Cast(project.Lowest)
-    elseif project.Lowest.hp < 70 then
-        return spell:Cast(project.Lowest)
+    if spell:Castable(project.Lowest) then
+        if player.Buff(16870) or project.Lowest.hp < 75 then -- clearcast
+            return spell:Cast(project.Lowest)
+        end
     end
 end)
 
 Swiftmend:Callback(function(spell)
-    if project.Lowest.hp < 50 then
+    if project.Lowest.hp < 55 then
         if project.Lowest.buff(774) then
             if spell:Castable(project.Lowest) then
                 if spell:Cast(project.Lowest) then
@@ -86,12 +88,8 @@ Rebirth:Callback(function(spell)
 end)
 
 Natswift:Callback(function(spell)
-    if project.Lowest.hp < 45 then
-    if spell:Castable() then 
-        if spell:Cast() then
-            return true
-            end
-        end
+    if project.Lowest.hp < 65 and spell:Castable(project.Lowest) then 
+        return spell:Cast(project.Lowest)
     end
 end)
 
@@ -131,14 +129,36 @@ Moonfire:Callback(function(spell)
     end
 end)
 
-Wrath:Callback(function(spell)
+Sunfire:Callback(function(spell)
     if target.Combat then
+        awful.enemies.loop(function(unit, i, uptime)
+            if not spell:Castable(unit) then return end
+            if unit.debuff(164815) then return end
+            if spell:Cast(unit) then
+                return true
+            end
+        end)
+    end
+end)
+
+Wrath:Callback(function(spell)
+    if spell:Castable(target) and target.Combat then
         spell:Cast(target)
     end
 end)
 
-Starfire:Callback(function(spell)
-    if target.Combat and awful.enemies.count >= 3 then
+Starsurge:Callback(function(spell)
+    if spell:Castable(target) and target.Combat then
         spell:Cast(target)
+    end
+end)
+    
+Starfire:Callback(function(spell)
+    if spell:Castable(target) then
+        if target.Combat then
+            if awful.enemies.around(target, 5) >= 3 then
+                spell:Cast(target)
+            end
+        end
     end
 end)

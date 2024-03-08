@@ -42,6 +42,8 @@ druid:Init(function()
     if target.enemy then
         Moonfire()
         Starfire()
+        Sunfire()
+        Starsurge()
         Wrath()
     end
 end
