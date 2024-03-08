@@ -105,17 +105,17 @@ MarkOfWild:Callback(function(spell)
     end)
 end)
 
-Natcure:Callback(function(spell)
-    awful.fullGroup.loop(function(member)
-        if member.debuffType("Disease") then
-            if spell:Castable(member) then
-                if spell:Cast(member) then
-                    return true
-                end
-            end
-        end
-    end)
-end)
+-- Natcure:Callback(function(spell)
+--     awful.fullGroup.loop(function(member)
+--         if member:DebuffType("Disease") then
+--             if spell:Castable(member) then
+--                 if spell:Cast(member) then
+--                     return true
+--                 end
+--             end
+--         end
+--     end)
+-- end)
 
 --## DAMAGE ABILITIES ##
 

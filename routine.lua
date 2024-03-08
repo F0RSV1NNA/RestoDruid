@@ -38,7 +38,7 @@ druid:Init(function()
     Rejuvenation()
     Lifebloom()
     Swiftmend()
-    Natcure()
+    --Natcure()
     if target.enemy then
         Moonfire()
         Starfire()
@@ -50,7 +50,7 @@ end
         Rejuvenation()
         Lifebloom()
         Swiftmend()
-        Natcure()
+        --Natcure()
     end
 
 
