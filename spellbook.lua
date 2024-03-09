@@ -5,14 +5,22 @@ local Spell = awful.Spell
 
 awful.Populate({
 --## Cooldowns ##
-    Rebirth = Spell(20484,{beneficial = true, castByID = true}),
-    Natswift = Spell(132158,{beneficial = true, castByID = true}),
+    Rebirth = Spell(20484, {beneficial = true, castByID = true}),
+    Natswift = Spell(132158, {beneficial = true, castByID = true}),
+   -- Flourish = Spell(197721, {beneficial = true, castByID = true}),
+   -- Incarn = Spell(33891, {beneficial = true, castByID = true}),
+   -- Renewal = Spell(108238, {beneficial = true, castByID = true}),
+   -- Innervate = Spell(29166, {beneficial = true, castByID = true}),
+--## defensives ##
+    --Ironbark = Spell(102342, {beneficial = true, castByID = true}),
+   -- Barkskin = Spell(22812, {beneficial = true, castByID = true}),
 --## Dispell ##
     --Natcure = Spell(88423,{beneficial = true, castByID = true}),
 --## Buff's ##
-    MarkOfWild = Spell(1126,{beneficial = true, castByID = true}),
+    MarkOfWild = Spell(1126, {beneficial = true, castByID = true}),
 --## AoE Heals ##
     WildGrowth = Spell(48438, {heal = true, AoE = true, castByID = true}),
+    --Tranq = Spell(740, {heal = true, castByID = true}),
     Efflore = Spell(145205, {heal = true, AoE = true, castByID = true}),
 --## HoT Heals ##
     Lifebloom  = Spell(33763, {heal = true, castByID = true}),
@@ -21,11 +29,11 @@ awful.Populate({
     Regrowth = Spell(8936, {heal = true, castByID = true}),
     Swiftmend = Spell(18562, {heal = true, castByID = true}),
 --## Damage Abilities ##
-    Moonfire = awful.Spell(8921,{castByID = true, ranged = true}),
-    Sunfire = awful.Spell(93402,{castByID = true, ranged = true}),
-    Wrath = awful.Spell(5176,{castByID = true, ranged = true}),
-    Starsurge = awful.Spell(197626,{castByID = true, ranged = true}),
-    Starfire = awful.Spell(197628,{castByID = true, ranged = true}),
+    Moonfire = awful.Spell(8921, {castByID = true, ranged = true}),
+    Sunfire = awful.Spell(93402, {castByID = true, ranged = true}),
+    Wrath = awful.Spell(5176, {castByID = true, ranged = true}),
+    Starsurge = awful.Spell(197626, {castByID = true, ranged = true}),
+    Starfire = awful.Spell(197628, {castByID = true, ranged = true}),
 
 }, resto, getfenv(1))
 
