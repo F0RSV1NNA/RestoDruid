@@ -13,6 +13,7 @@ awful.Populate({
     MarkOfWild = Spell(1126,{beneficial = true, castByID = true}),
 --## AoE Heals ##
     WildGrowth = Spell(48438, {heal = true, AoE = true, castByID = true}),
+    Efflore = Spell(145205, {heal = true, AoE = true, castByID = true}),
 --## HoT Heals ##
     Lifebloom  = Spell(33763, {heal = true, castByID = true}),
     Rejuvenation = Spell(774, {heal = true, castByID = true}),
@@ -27,6 +28,25 @@ awful.Populate({
     Starfire = awful.Spell(197628,{castByID = true, ranged = true}),
 
 }, resto, getfenv(1))
+
+--## AoE Heals ##
+
+Efflore:Callback(function(spell)
+    if awful.party.members:Count(function(member) return member.hp < 80 end) > 2 then
+        if player.buff(spell.id) then return end
+        if spell:Castable() then
+            return spell:SmartAoE(awful.player)
+        end
+    end
+end)
+
+WildGrowth:Callback(function(spell)
+    if awful.party.members:Count(function(member) return member.hp < 70 end) > 2 then
+        if spell:Castable() then
+            return spell:cast()
+        end
+    end
+end)
 
 --## HoT's ##
 
@@ -78,9 +98,9 @@ end)
 --## Cooldowns ##
 
 Rebirth:Callback(function(spell)
-    if project.Lowest.alive == false and project.Lowest.role == "TANK" then
-        if spell:Castable(project.Lowest) then 
-            if spell:Cast(project.Lowest) then
+    if awful.tank.dead then
+        if spell:Castable(awful.tank) then 
+            if spell:Cast(awful.tank) then
                 return true
             end
         end

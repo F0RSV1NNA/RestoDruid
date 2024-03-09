@@ -37,6 +37,8 @@ druid:Init(function()
     Regrowth()
     Rejuvenation()
     Lifebloom()
+    Efflore()
+    WildGrowth()
     Swiftmend()
     --Natcure()
     if target.enemy then
