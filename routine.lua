@@ -1,7 +1,7 @@
 local Unlocker, awful, project = ...
 local settings = project.settings
 local player, target = awful.player, awful.target
-
+if player.class2 ~= "DRUID" then return end
 if awful.player.spec ~= "Restoration" then return end
 
 awful.DevMode = true

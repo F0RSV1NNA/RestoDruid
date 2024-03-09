@@ -32,7 +32,7 @@ StatusFrame:Button({
 	  enabled = awful.colors.green .. "Enabled",
 	  disabled = awful.colors.red .. "Disabled"
 	},
-	textSize = 8,
+	textSize = 10,
 	var = "on",
 	onClick = function()
 	  awful.enabled = not awful.enabled
@@ -61,7 +61,7 @@ StatusFrame:Button({
 		enabled = awful.colors.green .. "DMG",
 		disabled = awful.colors.red .. "DMG"
 	  },
-	textSize = 8,
+	textSize = 10,
 	spellId = 287712,
 	var = "DMG",
 	onClick = function()
