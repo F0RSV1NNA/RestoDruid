@@ -34,26 +34,28 @@ druid:Init(function()
   Natswift()
 
   if settings.DMG then
-    Regrowth()
     Rejuvenation()
     Lifebloom()
     Efflore()
-    WildGrowth()
     Swiftmend()
+    Regrowth()
+    --WildGrowth()
     --Natcure()
     if target.enemy then
-        Moonfire()
         Sunfire()
+        Moonfire()
         Starsurge()
         Starfire()
         Wrath()
     end
 end
     if not settings.DMG then
-        Regrowth()
         Rejuvenation()
         Lifebloom()
+        --Efflore()
         Swiftmend()
+        Regrowth()
+        --WildGrowth()
         --Natcure()
     end
 

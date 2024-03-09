@@ -19,7 +19,7 @@ awful.Populate({
 --## Buff's ##
     MarkOfWild = Spell(1126, {beneficial = true, castByID = true}),
 --## AoE Heals ##
-    WildGrowth = Spell(48438, {heal = true, AoE = true, castByID = true}),
+    --WildGrowth = Spell(48438, {heal = true, AoE = true, castByID = true}),
     --Tranq = Spell(740, {heal = true, castByID = true}),
     Efflore = Spell(145205, {heal = true, AoE = true, castByID = true}),
 --## HoT Heals ##
@@ -38,23 +38,21 @@ awful.Populate({
 }, resto, getfenv(1))
 
 --## AoE Heals ##
-
 Efflore:Callback(function(spell)
-    if awful.party.members:Count(function(member) return member.hp < 80 end) > 2 then
-        if player.buff(spell.id) then return end
-        if spell:Castable() then
-            return spell:SmartAoE(awful.player)
-        end
+    if awful.tank.buff(spell.id) then return end
+    if spell:Castable(awful.tank) and awful.tank.hp < 90 then 
+        return spell:SmartAoE(awful.tank)
     end
 end)
 
-WildGrowth:Callback(function(spell)
-    if awful.party.members:Count(function(member) return member.hp < 70 end) > 2 then
-        if spell:Castable() then
-            return spell:cast()
-        end
-    end
-end)
+
+-- WildGrowth:Callback(function(spell)
+--     if awful.fullGroup.member:Count(function(member) return member.hp < 70 end) > 2 then
+--         if spell:Castable() then
+--             return spell:cast()
+--         end
+--     end
+-- end)
 
 --## HoT's ##
 
@@ -125,7 +123,7 @@ end)
 
 MarkOfWild:Callback(function(spell)
     awful.group.loop(function(player)
-        if not player.buff(spell.id) then
+        if not player.buff(spell.id) and spell:Castable() then
             return spell:Cast()
         end
     end)
