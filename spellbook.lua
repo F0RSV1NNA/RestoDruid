@@ -21,7 +21,7 @@ awful.Populate({
 --## AoE Heals ##
     --WildGrowth = Spell(48438, {heal = true, AoE = true, castByID = true}),
     --Tranq = Spell(740, {heal = true, castByID = true}),
-    Efflore = Spell(145205, {heal = true, AoE = true, castByID = true}),
+    Efflore = Spell(145205, {heal = true, radius = 2, AoE = true, castByID = true}),
 --## HoT Heals ##
     Lifebloom  = Spell(33763, {heal = true, castByID = true}),
     Rejuvenation = Spell(774, {heal = true, castByID = true}),
@@ -38,13 +38,24 @@ awful.Populate({
 }, resto, getfenv(1))
 
 --## AoE Heals ##
+-- Efflore:Callback(function(spell)
+--     if awful.tank.buff(spell.id) then return end
+--     if spell:Castable(awful.tank) and awful.tank.hp < 90 then 
+--         return spell:SmartAoE(awful.tank)
+--     end
+-- end)
+
 Efflore:Callback(function(spell)
-    if awful.tank.buff(spell.id) then return end
-    if spell:Castable(awful.tank) and awful.tank.hp < 90 then 
-        return spell:SmartAoE(awful.tank)
+    local tankThreshold = 90
+
+    for _, tank in ipairs(awful.tanks) do
+        if tank.exists and not tank.buff(spell.id) and tank.hp < tankThreshold then
+            if spell:Castable(tank) then
+                return spell:SmartAoE(awful.tank)
+            end
+        end
     end
 end)
-
 
 -- WildGrowth:Callback(function(spell)
 --     if awful.fullGroup.member:Count(function(member) return member.hp < 70 end) > 2 then
