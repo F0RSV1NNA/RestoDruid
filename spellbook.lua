@@ -21,7 +21,7 @@ awful.Populate({
 --## AoE Heals ##
     --WildGrowth = Spell(48438, {heal = true, AoE = true, castByID = true}),
     --Tranq = Spell(740, {heal = true, castByID = true}),
-    Efflore = Spell(145205, {heal = true, radius = 2, AoE = true, castByID = true}),
+    Efflore = Spell(145205, {heal = true, radius = 10, AoE = true, castByID = true}),
 --## HoT Heals ##
     Lifebloom  = Spell(33763, {heal = true, castByID = true}),
     Rejuvenation = Spell(774, {heal = true, castByID = true}),
