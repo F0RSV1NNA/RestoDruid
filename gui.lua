@@ -70,3 +70,18 @@ StatusFrame:Button({
 	size = 32,
 	padding = 0
   })
+  
+  StatusFrame:Button({
+	text = {
+		enabled = awful.colors.green .. "AoE",
+		disabled = awful.colors.red .. "AoE"
+	  },
+	textSize = 10,
+	spellId = 740,
+	var = "AOE",
+	onClick = function()
+	  awful.print(settings.DMG and "AoE |cff5fd729On" or "AoE |cfff44336Off")
+	end,
+	size = 32,
+	padding = 0
+  })

@@ -114,7 +114,7 @@ local tranqready = fullGroup.around(player, 40, tranqHit)
 
 Tranq:Callback(function(spell)
     if not spell:Castable() then return end
-    if tranqready < 3 then
+    if tranqready >= 3 then
         return spell:Cast()
     end
 end)
@@ -123,11 +123,11 @@ local function WildGrowthHit(obj)
     return obj.hp < 70 
 end
 
-local WildGrowthready = fullGroup.around(project.Lowest, 10, WildGrowthHit)
+local WildGrowthready = fullGroup.around(project.Lowest, 30, WildGrowthHit)
 
 WildGrowth:Callback(function(spell)
     if not spell:Castable(project.Lowest) then return end
-    if WildGrowthready < 3 then
+    if WildGrowthready >= 3 then
         return spell:Cast(project.Lowest)
     end
 end)

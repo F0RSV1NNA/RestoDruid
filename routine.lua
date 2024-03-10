@@ -33,40 +33,26 @@ druid:Init(function()
         Rebirth()
         MarkOfWild()
         Natswift()
-
-    if settings.DMG then
         Rejuvenation()
         Lifebloom()
-        Efflore()
-        Tranq()
-        WildGrowth()
+        if settings.aoe then
+            Efflore()
+            Tranq()
+            WildGrowth()
+        end
         Swiftmend()
         Ironbark()
         Barkskin()
         Regrowth()
         --Natcure()
-    if target.enemy then
-        Sunfire()
-        Moonfire()
-        Starsurge()
-        Starfire()
-        Wrath()
+    if settings.DMG then
+        if target.enemy then
+            Sunfire()
+            Moonfire()
+            Starsurge()
+            Starfire()
+            Wrath()
+        end
     end
-end
-    if not settings.DMG then
-        Rejuvenation()
-        Lifebloom()
-        Efflore()
-        Tranq()
-        WildGrowth()
-        Swiftmend()
-        Ironbark()
-        Barkskin()
-        Regrowth()
-    end
-
-
-
-
 end)
 
