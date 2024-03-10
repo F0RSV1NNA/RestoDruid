@@ -20,7 +20,7 @@ awful.Populate({
 --## Buff's ##
     MarkOfWild = Spell(1126, {beneficial = true, castByID = true}),
 --## AoE Heals ##
-    WildGrowth = Spell(48438, {heal = true, AoE = true, castByID = true}),
+    WildGrowth = Spell(48438, {heal = true, castByID = true}),
     Tranq = Spell(740, {heal = true, castByID = true}),
     Efflore = Spell(145205, {heal = true, radius = 10, AoE = true, castByID = true}),
 --## HoT Heals ##
