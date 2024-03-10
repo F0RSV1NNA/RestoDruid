@@ -127,7 +127,7 @@ local WildGrowthready = fullGroup.around(project.Lowest, 30, WildGrowthHit)
 
 WildGrowth:Callback(function(spell)
     if not spell:Castable(project.Lowest) then return end
-    if WildGrowthready >= 3 then
+    if WildGrowthready >= 2 then
         return spell:Cast(project.Lowest)
     end
 end)
