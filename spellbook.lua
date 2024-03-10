@@ -14,7 +14,7 @@ awful.Populate({
    -- Innervate = Spell(29166, {beneficial = true, castByID = true}),
 --## defensives ##
     Ironbark = Spell(102342, {beneficial = true, castByID = true}),
-   -- Barkskin = Spell(22812, {beneficial = true, castByID = true}),
+    Barkskin = Spell(22812, {beneficial = true, castByID = true}),
 --## Dispell ##
     --Natcure = Spell(88423,{beneficial = true, castByID = true}),
 --## Buff's ##
@@ -145,6 +145,12 @@ Ironbark:Callback(function(spell)
     end
 end)
 
+Barkskin:Callback(function(spell)
+    if player.buff(spell.id) then return end
+    if spell:Castable(player) and player.hp < 60 then 
+        return spell:Cast(player)
+    end
+end)
 
 --## BUFF ##
 

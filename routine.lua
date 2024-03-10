@@ -42,6 +42,7 @@ druid:Init(function()
     WildGrowth()
     Swiftmend()
     Ironbark()
+    Barkskin()
     Regrowth()
     --Natcure()
     if target.enemy then
