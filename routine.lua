@@ -35,7 +35,7 @@ druid:Init(function()
         Natswift()
         Rejuvenation()
         Lifebloom()
-        if settings.aoe then
+        if settings.AOE then
             Efflore()
             Tranq()
             WildGrowth()
