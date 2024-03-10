@@ -12,7 +12,7 @@ awful.Populate({
    -- Renewal = Spell(108238, {beneficial = true, castByID = true}),
    -- Innervate = Spell(29166, {beneficial = true, castByID = true}),
 --## defensives ##
-    --Ironbark = Spell(102342, {beneficial = true, castByID = true}),
+    Ironbark = Spell(102342, {beneficial = true, castByID = true}),
    -- Barkskin = Spell(22812, {beneficial = true, castByID = true}),
 --## Dispell ##
     --Natcure = Spell(88423,{beneficial = true, castByID = true}),
@@ -20,7 +20,7 @@ awful.Populate({
     MarkOfWild = Spell(1126, {beneficial = true, castByID = true}),
 --## AoE Heals ##
     --WildGrowth = Spell(48438, {heal = true, AoE = true, castByID = true}),
-    --Tranq = Spell(740, {heal = true, castByID = true}),
+    Tranq = Spell(740, {heal = true, castByID = true}),
     Efflore = Spell(145205, {heal = true, radius = 10, AoE = true, castByID = true}),
 --## HoT Heals ##
     Lifebloom  = Spell(33763, {heal = true, castByID = true}),
@@ -46,14 +46,9 @@ awful.Populate({
 -- end)
 
 Efflore:Callback(function(spell)
-    local tankThreshold = 90
-
-    for _, tank in ipairs(awful.tanks) do
-        if tank.exists and not tank.buff(spell.id) and tank.hp < tankThreshold then
-            if spell:Castable(tank) then
-                return spell:SmartAoE(awful.tank)
-            end
-        end
+    if player.buff(spell.id) then return end
+    if spell:Castable(awful.tank) and awful.tank.hp < 90 then 
+        return spell:SmartAoE(awful.tank)
     end
 end)
 
@@ -129,6 +124,23 @@ Natswift:Callback(function(spell)
         return spell:Cast(project.Lowest)
     end
 end)
+
+Tranq:Callback(function(spell)
+    if player.buff(spell.id) then return end
+    if spell:Castable() and  player.hp < 30 then
+        return spell:Cast()
+    end
+end)
+
+--## Defensive's ##
+
+Ironbark:Callback(function(spell)
+    if tank.buff(spell.id) then return end
+    if spell:Castable(awful.tank) and awful.tank.hp < 50 then 
+        return spell:Cast(awful.tank)
+    end
+end)
+
 
 --## BUFF ##
 
