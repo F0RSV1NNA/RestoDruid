@@ -67,7 +67,7 @@ end)
 
 Regrowth:Callback(function(spell)
     if spell:Castable(project.Lowest) then
-        if player.Buff(16870) or project.Lowest.hp < 75 then -- clearcast
+        if project.Lowest.hp < 70 then
             return spell:Cast(project.Lowest)
         end
     end
@@ -147,7 +147,7 @@ end)
 
 Ironbark:Callback(function(spell)
     if tank.buff(spell.id) then return end
-    if spell:Castable(awful.tank) and awful.tank.hp < 50 then 
+    if spell:Castable(awful.tank) and awful.tank.hp < 65 then 
         return spell:Cast(awful.tank)
     end
 end)

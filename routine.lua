@@ -27,24 +27,24 @@ end
 print("[|cffFF6B33Zmizet|r PvE |cff3FC7EBResto|r]")
 
 druid:Init(function()
-  if player.mounted then return end 
+    if player.mounted then return end 
+    if player.dead then return end
+        SetLowest()
+        Rebirth()
+        MarkOfWild()
+        Natswift()
 
-  SetLowest()
-  Rebirth()
-  MarkOfWild()
-  Natswift()
-
-  if settings.DMG then
-    Rejuvenation()
-    Lifebloom()
-    Efflore()
-    Tranq()
-    WildGrowth()
-    Swiftmend()
-    Ironbark()
-    Barkskin()
-    Regrowth()
-    --Natcure()
+    if settings.DMG then
+        Rejuvenation()
+        Lifebloom()
+        Efflore()
+        Tranq()
+        WildGrowth()
+        Swiftmend()
+        Ironbark()
+        Barkskin()
+        Regrowth()
+        --Natcure()
     if target.enemy then
         Sunfire()
         Moonfire()
