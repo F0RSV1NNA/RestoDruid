@@ -56,11 +56,13 @@ end
     if not settings.DMG then
         Rejuvenation()
         Lifebloom()
-        --Efflore()
+        Efflore()
+        Tranq()
+        WildGrowth()
         Swiftmend()
+        Ironbark()
+        Barkskin()
         Regrowth()
-        --WildGrowth()
-        --Natcure()
     end
 
 
