@@ -2,6 +2,7 @@ local Unlocker, awful, project = ...
 local resto = project.druid.resto
 local player, target, focus, healer = awful.player, awful.target, awful.focus, awful.healer
 local party1, party2, party3, party4 = awful.party1, awful.party2, awful.party3, awful.party4
+local fullGroup = awful.fullGroup
 local Spell = awful.Spell
 
 awful.Populate({
@@ -118,7 +119,7 @@ end
 local function tranqHit(obj)
     return not obj.dead and obj.hp < 60 
 end
-local cluster = awful.fullGroup.around(player, 40, tranqHit)
+local cluster = fullGroup.around(player, 40, tranqHit)
 
 Tranq:Callback(function(spell)
     if cluster < 3 then return end
