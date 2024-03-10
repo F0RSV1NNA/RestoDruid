@@ -20,7 +20,7 @@ awful.Populate({
 --## Buff's ##
     MarkOfWild = Spell(1126, {beneficial = true, castByID = true}),
 --## AoE Heals ##
-    --WildGrowth = Spell(48438, {heal = true, AoE = true, castByID = true}),
+    WildGrowth = Spell(48438, {heal = true, AoE = true, castByID = true}),
     Tranq = Spell(740, {heal = true, castByID = true}),
     Efflore = Spell(145205, {heal = true, radius = 10, AoE = true, castByID = true}),
 --## HoT Heals ##
@@ -128,21 +128,27 @@ end)
 
 local function checkPartyHealth()
     local count = 0
-    if player.hp < 80 then count = count + 1 end
-    if party1 and party1.hp < 80 then count = count + 1 end
-    if party2 and party2.hp < 80 then count = count + 1 end
-    if party3 and party3.hp < 80 then count = count + 1 end
-    if party4 and party4.hp < 80 then count = count + 1 end
+    if healer.hp < 60 then count = count + 1 end
+    if party1 and party1.hp < 60 then count = count + 1 end
+    if party2 and party2.hp < 60 then count = count + 1 end
+    if party3 and party3.hp < 60 then count = count + 1 end
+    if party4 and party4.hp < 60 then count = count + 1 end
     return count
 end
 
 Tranq:Callback(function(spell)
-    if checkPartyHealth() ~= 3 then return end
+    if checkPartyHealth() ~= 4 then return end
     if spell:Castable() then
         return spell:Cast()
     end
 end)
 
+WildGrowth:Callback(function(spell)
+    if checkPartyHealth() ~= 3 then return end
+    if spell:Castable(project.Lowest) then
+        return spell:Cast(project.Lowest)
+    end
+end)
 --## Defensive's ##
 
 Ironbark:Callback(function(spell)
