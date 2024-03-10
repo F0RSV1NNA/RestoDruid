@@ -108,15 +108,20 @@ end)
 local function checkPartyHealth()
     local count = 0
     if healer.hp < 60 then count = count + 1 end
-    if party1 and party1.hp < 60 then count = count + 1 end
-    if party2 and party2.hp < 60 then count = count + 1 end
-    if party3 and party3.hp < 60 then count = count + 1 end
-    if party4 and party4.hp < 60 then count = count + 1 end
+    if party1 and party1.hp < 70 then count = count + 1 end
+    if party2 and party2.hp < 70 then count = count + 1 end
+    if party3 and party3.hp < 70 then count = count + 1 end
+    if party4 and party4.hp < 70 then count = count + 1 end
     return count
 end
 
+local function tranqHit(obj)
+    return not obj.dead and obj.hp < 60 
+end
+local cluster = awful.fullGroup.around(player, 40, tranqHit)
+
 Tranq:Callback(function(spell)
-    if checkPartyHealth() < 3 then return end
+    if cluster < 3 then return end
     if spell:Castable() then
         return spell:Cast()
     end
