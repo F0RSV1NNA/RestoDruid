@@ -1,6 +1,7 @@
 local Unlocker, awful, project = ...
 local resto = project.druid.resto
-local player, target = awful.player, awful.target
+local player, target, focus, healer = awful.player, awful.target, awful.focus, awful.healer
+local party1, party2, party3, party4 = awful.party1, awful.party2, awful.party3, awful.party4
 local Spell = awful.Spell
 
 awful.Populate({
@@ -125,9 +126,19 @@ Natswift:Callback(function(spell)
     end
 end)
 
+local function checkPartyHealth()
+    local count = 0
+    if player.hp < 80 then count = count + 1 end
+    if party1 and party1.hp < 80 then count = count + 1 end
+    if party2 and party2.hp < 80 then count = count + 1 end
+    if party3 and party3.hp < 80 then count = count + 1 end
+    if party4 and party4.hp < 80 then count = count + 1 end
+    return count
+end
+
 Tranq:Callback(function(spell)
-    if player.buff(spell.id) then return end
-    if spell:Castable() and  player.hp < 30 then
+    if checkPartyHealth() ~= 3 then return end
+    if spell:Castable() then
         return spell:Cast()
     end
 end)

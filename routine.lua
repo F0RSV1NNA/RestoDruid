@@ -1,6 +1,7 @@
 local Unlocker, awful, project = ...
 local settings = project.settings
-local player, target = awful.player, awful.target
+local player, target, focus, healer = awful.player, awful.target, awful.focus, awful.healer
+local party1, party2, party3, party4 = awful.party1, awful.party2, awful.party3, awful.party4
 if player.class2 ~= "DRUID" then return end
 if awful.player.spec ~= "Restoration" then return end
 
@@ -37,6 +38,7 @@ druid:Init(function()
     Rejuvenation()
     Lifebloom()
     Efflore()
+    Tranq()
     Swiftmend()
     Ironbark()
     Regrowth()
