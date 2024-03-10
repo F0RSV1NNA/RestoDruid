@@ -116,7 +116,7 @@ local function checkPartyHealth()
 end
 
 Tranq:Callback(function(spell)
-    if checkPartyHealth() > 3 then return end
+    if checkPartyHealth() < 3 then return end
     if spell:Castable() then
         return spell:Cast()
     end
