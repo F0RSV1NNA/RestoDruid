@@ -106,32 +106,28 @@ end)
 
 --## AoE ## 
 
-local function checkPartyHealth()
-    local count = 0
-    if healer.hp < 60 then count = count + 1 end
-    if party1 and party1.hp < 70 then count = count + 1 end
-    if party2 and party2.hp < 70 then count = count + 1 end
-    if party3 and party3.hp < 70 then count = count + 1 end
-    if party4 and party4.hp < 70 then count = count + 1 end
-    return count
-end
-
 local function tranqHit(obj)
-    return not obj.dead and obj.hp < 60 
+    return obj.hp < 50 
 end
 
-local cluster = fullGroup.around(player, 40, tranqHit)
+local tranqready = fullGroup.around(player, 40, tranqHit)
 
 Tranq:Callback(function(spell)
-    if cluster < 3 then return end
-    if spell:Castable() then
+    if not spell:Castable() then return end
+    if tranqready < 3 then
         return spell:Cast()
     end
 end)
 
+local function WildGrowthHit(obj)
+    return obj.hp < 70 
+end
+
+local WildGrowthready = fullGroup.around(project.Lowest, 10, WildGrowthHit)
+
 WildGrowth:Callback(function(spell)
-    if checkPartyHealth() ~= 3 then return end
-    if spell:Castable(project.Lowest) then
+    if not spell:Castable(project.Lowest) then return end
+    if WildGrowthready < 3 then
         return spell:Cast(project.Lowest)
     end
 end)
