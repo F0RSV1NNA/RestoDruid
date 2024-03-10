@@ -119,6 +119,7 @@ end
 local function tranqHit(obj)
     return not obj.dead and obj.hp < 60 
 end
+
 local cluster = fullGroup.around(player, 40, tranqHit)
 
 Tranq:Callback(function(spell)
