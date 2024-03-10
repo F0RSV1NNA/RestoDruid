@@ -126,6 +126,8 @@ Natswift:Callback(function(spell)
     end
 end)
 
+--## AoE ## 
+
 local function checkPartyHealth()
     local count = 0
     if healer.hp < 60 then count = count + 1 end
