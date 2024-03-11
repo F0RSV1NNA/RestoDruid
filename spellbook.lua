@@ -159,8 +159,8 @@ end)
 
 MarkOfWild:Callback(function(spell)
     awful.group.loop(function(player)
-        if not player.buff(spell.id) and spell:Castable() then
-            return spell:Cast()
+        if not player.buff(spell.id) and spell:Castable(player) then
+            return spell:Cast(player)
         end
     end)
 end)
