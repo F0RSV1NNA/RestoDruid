@@ -17,7 +17,7 @@ awful.Populate({
     Ironbark = Spell(102342, {beneficial = true, castByID = true}),
     Barkskin = Spell(22812, {beneficial = true, castByID = true}),
 --## Dispell ##
-    --Natcure = Spell(88423,{beneficial = true, castByID = true}),
+    Natcure = Spell(88423,{beneficial = true, castByID = true}),
 --## Buff's ##
     MarkOfWild = Spell(1126, {beneficial = true, castByID = true}),
 --## AoE Heals ##
@@ -42,22 +42,21 @@ awful.Populate({
 --## HoT's ##
 
 Rejuvenation:Callback(function(spell)
-    if project.Lowest.hp < 95 then
-    if project.Lowest.buff(spell.id) then return end
-    if spell:Castable(project.Lowest) then 
-        if spell:Cast(project.Lowest) then
-            return true
+    if spell:Castable(project.Lowest) then
+        if project.Lowest.buff(spell.id) then return end
+        if project.Lowest.hp < 90 then
+            if spell:Cast(project.Lowest) then
+                return true
             end
         end
     end
 end)
 
 Lifebloom:Callback(function(spell)
-    if project.Lowest.hp < 90 then
-    if project.Lowest.buff(spell.id) then return end
-    if spell:Castable(project.Lowest) then 
-        if spell:Cast(project.Lowest) then
-            return true
+    if spell:Castable(project.Lowest) then
+        if project.Lowest.hp < 95 and not project.Lowest.buff(spell.id) then
+            if spell:Cast(project.Lowest) then
+                return true
             end
         end
     end
@@ -66,22 +65,14 @@ end)
 --## Regular HEALS ##
 
 Regrowth:Callback(function(spell)
-    if spell:Castable(project.Lowest) then
-        if project.Lowest.hp < 70 then
-            return spell:Cast(project.Lowest)
-        end
+    if spell:Castable(project.Lowest) and project.Lowest.hp < 70 then
+        return spell:Cast(project.Lowest)
     end
 end)
 
 Swiftmend:Callback(function(spell)
-    if project.Lowest.hp < 55 then
-        if project.Lowest.buff(774) then
-            if spell:Castable(project.Lowest) then
-                if spell:Cast(project.Lowest) then
-                    return true
-                end
-            end
-        end
+    if spell:Castable(project.Lowest) and project.Lowest.buff(774) and project.Lowest.hp < 55 then
+        return spell:Cast(project.Lowest)
     end
 end)
 
@@ -89,12 +80,8 @@ end)
 --## Cooldowns ##
 
 Rebirth:Callback(function(spell)
-    if awful.tank.dead then
-        if spell:Castable(awful.tank) then 
-            if spell:Cast(awful.tank) then
-                return true
-            end
-        end
+    if awful.tank.dead and spell:Castable(awful.tank) then 
+        return spell:Cast(awful.tank)
     end
 end)
 
