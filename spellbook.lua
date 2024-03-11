@@ -211,11 +211,9 @@ end)
 
 Moonfire:Callback(function(spell)
     if target.Combat then
-        awful.enemies.loop(function(unit, i, uptime)
-            if not spell:Castable(unit) then return end
-            if unit.debuff(164812) then return end
-            if spell:Cast(unit) then
-                return true
+        awful.enemies.loop(function(unit)
+            if spell:Castable(unit) and not unit.debuff(164812) and unit.Combat then
+                return spell:Cast(unit)
             end
         end)
     end
@@ -223,11 +221,9 @@ end)
 
 Sunfire:Callback(function(spell)
     if target.Combat then
-        awful.enemies.loop(function(unit, i, uptime)
-            if not spell:Castable(unit) then return end
-            if unit.debuff(164815) then return end
-            if spell:Cast(unit) then
-                return true
+        awful.enemies.loop(function(unit)
+            if spell:Castable(unit) and not unit.debuff(164815) and unit.Combat then
+                return spell:Cast(unit)
             end
         end)
     end
