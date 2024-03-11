@@ -165,17 +165,47 @@ MarkOfWild:Callback(function(spell)
     end)
 end)
 
--- Natcure:Callback(function(spell)
---     awful.fullGroup.loop(function(member)
---         if member:DebuffType("Disease") then
---             if spell:Castable(member) then
---                 if spell:Cast(member) then
---                     return true
---                 end
---             end
---         end
---     end)
--- end)
+local debuffsToCheck = {
+
+    413544,
+    164965,
+    405696,
+    413607,
+    265881,
+    412378,
+    265880,
+    200182,
+    76820,
+    418200,
+    198904,
+    427376,
+    416716,
+    225908,
+    264390,
+    255041,
+    427459,
+    260702
+
+}
+
+local function hasDebuff()
+    for _, debuffID in ipairs(debuffsToCheck) do
+        if player.debuff(debuffID) then
+            return true
+        end
+    end
+    return false
+end
+
+
+Natcure:Callback(function(spell)
+    awful.fullGroup.loop(function(member)
+        if hasDebuff(member) and spell:Castable(member) then
+            return spell:Cast(member)
+        end
+    end)
+end)
+
 
 --## DAMAGE ABILITIES ##
 

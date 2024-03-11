@@ -32,9 +32,11 @@ druid:Init(function()
         SetLowest()
         Rebirth()
         MarkOfWild()
+        Natcure()
         Natswift()
         Rejuvenation()
         Lifebloom()
+        
         if settings.AOE then
             Efflore()
             Tranq()
@@ -44,7 +46,6 @@ druid:Init(function()
         Ironbark()
         Barkskin()
         Regrowth()
-        --Natcure()
     if settings.DMG then
         if target.enemy then
             Sunfire()
