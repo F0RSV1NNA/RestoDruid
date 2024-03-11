@@ -94,7 +94,7 @@ end)
 --## AoE ## 
 
 local function tranqHit(obj)
-    return obj.hp < 50 
+    return obj.hp < 80 
 end
 
 local tranqready = fullGroup.around(player, 40, tranqHit)
@@ -107,7 +107,7 @@ Tranq:Callback(function(spell)
 end)
 
 local function WildGrowthHit(obj)
-    return obj.hp < 70 
+    return obj.hp < 90 
 end
 
 local WildGrowthready = fullGroup.around(project.Lowest, 30, WildGrowthHit)
